@@ -4,7 +4,7 @@ import { FormGroup, InputGroup, FormControl } from 'react-bootstrap';
 class InputNorth extends React.Component {
   handleChange(e) {
     if (e.target.value != '' && !isNaN(e.target.value)) {
-      this.props.setNorth(parseInt(e.target.value));
+      this.props.setNorth(parseFloat(e.target.value));
     } else {
       this.props.setNorth(0);
     }

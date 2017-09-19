@@ -9,8 +9,9 @@ import InputEast from '../components/InputEast';
 import InputWest from '../components/InputWest';
 import Distance from '../components/Distance';
 import Displacement from '../components/Displacement';
+import Angle from '../components/Angle';
 
-const AppContainer = ({ north, south, east, west, distance, displacement, setNorth, setSouth, setEast, setWest }) => {
+const AppContainer = ({ north, south, east, west, distance, displacement, setNorth, setSouth, setEast, setWest, angle }) => {
   return (
     <div>
       <Title />
@@ -21,6 +22,7 @@ const AppContainer = ({ north, south, east, west, distance, displacement, setNor
       <InputWest west={west} setWest={(num) => setWest(num)} />
       <Distance distance={distance} />
       <Displacement displacement={displacement} />
+      <Angle angle={angle} />
     </div>
   )
 }
@@ -30,6 +32,7 @@ AppContainer.propTypes = {
   south: PropTypes.number,
   east: PropTypes.number,
   west: PropTypes.number,
+  angle: PropTypes.number
 };
 
 const mapStateToProps = (state) => {
@@ -39,7 +42,8 @@ const mapStateToProps = (state) => {
       east: state.east,
       west: state.west,
       distance: state.distance,
-      displacement: state.displacement
+      displacement: state.displacement,
+      angle: state.angle
     };
 };
 
