@@ -32966,7 +32966,7 @@ var InputNorth = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (InputNorth.__proto__ || Object.getPrototypeOf(InputNorth)).call(this, props));
 
     _this.state = {
-      value: props.north
+      value: ''
     };
     return _this;
   }
@@ -44064,7 +44064,7 @@ var InputSouth = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (InputSouth.__proto__ || Object.getPrototypeOf(InputSouth)).call(this, props));
 
     _this.state = {
-      value: props.south
+      value: ''
     };
     return _this;
   }
@@ -44163,7 +44163,7 @@ var InputEast = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (InputEast.__proto__ || Object.getPrototypeOf(InputEast)).call(this, props));
 
     _this.state = {
-      value: props.east
+      value: ''
     };
     return _this;
   }
@@ -44262,7 +44262,7 @@ var InputWest = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (InputWest.__proto__ || Object.getPrototypeOf(InputWest)).call(this, props));
 
     _this.state = {
-      value: props.west
+      value: ''
     };
     return _this;
   }

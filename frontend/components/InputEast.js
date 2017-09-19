@@ -5,7 +5,7 @@ class InputEast extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.east
+      value: ''
     }
   }
 

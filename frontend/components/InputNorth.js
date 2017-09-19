@@ -5,7 +5,7 @@ class InputNorth extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.north
+      value: ''
     }
   }
 
