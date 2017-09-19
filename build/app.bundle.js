@@ -31886,13 +31886,15 @@ var defaultState = {
   east: 0,
   west: 0,
   displacement: 0,
-  distance: 0
+  distance: 0,
+  angle: 0
 };
 
 var dist = 0;
 var disp = 0;
 var distanceX = 0;
 var distanceY = 0;
+var angle = 0;
 
 var rootReducer = function rootReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
@@ -31904,40 +31906,56 @@ var rootReducer = function rootReducer() {
       distanceX = Math.abs(state.west - state.east);
       distanceY = Math.abs(state.south - action.north);
       disp = Math.hypot(distanceY, distanceX);
+      angle = distanceX > distanceY ? distanceY : distanceX;
+      angle /= disp;
+      angle = Math.asin(angle) * 180 / Math.PI;
       return Object.assign({}, state, {
         north: action.north,
         distance: dist,
-        displacement: disp
+        displacement: disp,
+        angle: angle
       });
     case 'UPDATE_SOUTH':
       dist = state.north + state.east + state.west + action.south;
       distanceX = Math.abs(state.west - state.east);
       distanceY = Math.abs(state.north - action.south);
       disp = Math.hypot(distanceY, distanceX);
+      angle = distanceX > distanceY ? distanceY : distanceX;
+      angle /= disp;
+      angle = Math.asin(angle) * 180 / Math.PI;
       return Object.assign({}, state, {
         south: action.south,
         distance: dist,
-        displacement: disp
+        displacement: disp,
+        angle: angle
       });
     case 'UPDATE_EAST':
       dist = state.north + state.south + state.west + action.east;
       distanceX = Math.abs(state.west - action.east);
       distanceY = Math.abs(state.south - state.north);
       disp = Math.hypot(distanceY, distanceX);
+      angle = distanceX > distanceY ? distanceY : distanceX;
+      angle /= disp;
+      angle = Math.asin(angle) * 180 / Math.PI;
       return Object.assign({}, state, {
         east: action.east,
         distance: dist,
-        displacement: disp
+        displacement: disp,
+        angle: angle
       });
     case 'UPDATE_WEST':
       dist = state.north + state.east + state.south + action.west;
       distanceX = Math.abs(action.west - state.east);
       distanceY = Math.abs(state.south - state.north);
       disp = Math.hypot(distanceY, distanceX);
+      angle = distanceX > distanceY ? distanceY : distanceX;
+      angle /= disp;
+      angle = Math.asin(angle) * 180 / Math.PI;
       return Object.assign({}, state, {
         west: action.west,
         distance: dist,
-        displacement: disp
+        displacement: disp,
+        angle: angle
       });
     default:
       return state;
@@ -32765,6 +32783,10 @@ var _Displacement = __webpack_require__(492);
 
 var _Displacement2 = _interopRequireDefault(_Displacement);
 
+var _Angle = __webpack_require__(493);
+
+var _Angle2 = _interopRequireDefault(_Angle);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var AppContainer = function AppContainer(_ref) {
@@ -32777,7 +32799,8 @@ var AppContainer = function AppContainer(_ref) {
       _setNorth = _ref.setNorth,
       _setSouth = _ref.setSouth,
       _setEast = _ref.setEast,
-      _setWest = _ref.setWest;
+      _setWest = _ref.setWest,
+      angle = _ref.angle;
 
   return _react2.default.createElement(
     'div',
@@ -32797,7 +32820,8 @@ var AppContainer = function AppContainer(_ref) {
         return _setWest(num);
       } }),
     _react2.default.createElement(_Distance2.default, { distance: distance }),
-    _react2.default.createElement(_Displacement2.default, { displacement: displacement })
+    _react2.default.createElement(_Displacement2.default, { displacement: displacement }),
+    _react2.default.createElement(_Angle2.default, { angle: angle })
   );
 };
 
@@ -32805,7 +32829,8 @@ AppContainer.propTypes = {
   north: _propTypes2.default.number,
   south: _propTypes2.default.number,
   east: _propTypes2.default.number,
-  west: _propTypes2.default.number
+  west: _propTypes2.default.number,
+  angle: _propTypes2.default.number
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -32815,7 +32840,8 @@ var mapStateToProps = function mapStateToProps(state) {
     east: state.east,
     west: state.west,
     distance: state.distance,
-    displacement: state.displacement
+    displacement: state.displacement,
+    angle: state.angle
   };
 };
 
@@ -32934,19 +32960,29 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var InputNorth = function (_React$Component) {
   _inherits(InputNorth, _React$Component);
 
-  function InputNorth() {
+  function InputNorth(props) {
     _classCallCheck(this, InputNorth);
 
-    return _possibleConstructorReturn(this, (InputNorth.__proto__ || Object.getPrototypeOf(InputNorth)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (InputNorth.__proto__ || Object.getPrototypeOf(InputNorth)).call(this, props));
+
+    _this.state = {
+      value: props.north
+    };
+    return _this;
   }
 
   _createClass(InputNorth, [{
     key: 'handleChange',
     value: function handleChange(e) {
       if (e.target.value != '' && !isNaN(e.target.value)) {
-        this.props.setNorth(parseInt(e.target.value));
+        this.props.setNorth(parseFloat(e.target.value));
+        this.setState({
+          value: e.target.value
+        });
       } else {
-        this.props.setNorth(0);
+        this.setState({
+          value: e.target.value
+        });
       }
     }
   }, {
@@ -32978,7 +33014,7 @@ var InputNorth = function (_React$Component) {
                 null,
                 'North'
               ),
-              _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.props.north, onChange: function onChange(e) {
+              _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.value, onChange: function onChange(e) {
                   return _this2.handleChange(e);
                 } })
             )
@@ -44022,19 +44058,29 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var InputSouth = function (_React$Component) {
   _inherits(InputSouth, _React$Component);
 
-  function InputSouth() {
+  function InputSouth(props) {
     _classCallCheck(this, InputSouth);
 
-    return _possibleConstructorReturn(this, (InputSouth.__proto__ || Object.getPrototypeOf(InputSouth)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (InputSouth.__proto__ || Object.getPrototypeOf(InputSouth)).call(this, props));
+
+    _this.state = {
+      value: props.south
+    };
+    return _this;
   }
 
   _createClass(InputSouth, [{
     key: 'handleChange',
     value: function handleChange(e) {
       if (e.target.value != '' && !isNaN(e.target.value)) {
-        this.props.setSouth(parseInt(e.target.value));
+        this.props.setSouth(parseFloat(e.target.value));
+        this.setState({
+          value: e.target.value
+        });
       } else {
-        this.props.setSouth(0);
+        this.setState({
+          value: e.target.value
+        });
       }
     }
   }, {
@@ -44066,7 +44112,7 @@ var InputSouth = function (_React$Component) {
                 null,
                 'South'
               ),
-              _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.props.south, onChange: function onChange(e) {
+              _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.value, onChange: function onChange(e) {
                   return _this2.handleChange(e);
                 } })
             )
@@ -44111,19 +44157,29 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var InputEast = function (_React$Component) {
   _inherits(InputEast, _React$Component);
 
-  function InputEast() {
+  function InputEast(props) {
     _classCallCheck(this, InputEast);
 
-    return _possibleConstructorReturn(this, (InputEast.__proto__ || Object.getPrototypeOf(InputEast)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (InputEast.__proto__ || Object.getPrototypeOf(InputEast)).call(this, props));
+
+    _this.state = {
+      value: props.east
+    };
+    return _this;
   }
 
   _createClass(InputEast, [{
     key: 'handleChange',
     value: function handleChange(e) {
       if (e.target.value != '' && !isNaN(e.target.value)) {
-        this.props.setEast(parseInt(e.target.value));
+        this.props.setEast(parseFloat(e.target.value));
+        this.setState({
+          value: e.target.value
+        });
       } else {
-        this.props.setEast(0);
+        this.setState({
+          value: e.target.value
+        });
       }
     }
   }, {
@@ -44155,7 +44211,7 @@ var InputEast = function (_React$Component) {
                 null,
                 'East'
               ),
-              _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.props.east, onChange: function onChange(e) {
+              _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.value, onChange: function onChange(e) {
                   return _this2.handleChange(e);
                 } })
             )
@@ -44200,19 +44256,29 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var InputWest = function (_React$Component) {
   _inherits(InputWest, _React$Component);
 
-  function InputWest() {
+  function InputWest(props) {
     _classCallCheck(this, InputWest);
 
-    return _possibleConstructorReturn(this, (InputWest.__proto__ || Object.getPrototypeOf(InputWest)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (InputWest.__proto__ || Object.getPrototypeOf(InputWest)).call(this, props));
+
+    _this.state = {
+      value: props.west
+    };
+    return _this;
   }
 
   _createClass(InputWest, [{
     key: 'handleChange',
     value: function handleChange(e) {
       if (e.target.value != '' && !isNaN(e.target.value)) {
-        this.props.setWest(parseInt(e.target.value));
+        this.props.setWest(parseFloat(e.target.value));
+        this.setState({
+          value: e.target.value
+        });
       } else {
-        this.props.setWest(0);
+        this.setState({
+          value: e.target.value
+        });
       }
     }
   }, {
@@ -44244,7 +44310,7 @@ var InputWest = function (_React$Component) {
                 null,
                 'West'
               ),
-              _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.props.west, onChange: function onChange(e) {
+              _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', value: this.state.value, onChange: function onChange(e) {
                   return _this2.handleChange(e);
                 } })
             )
@@ -44316,6 +44382,36 @@ var Displacement = function Displacement(_ref) {
 };
 
 exports.default = Displacement;
+
+/***/ }),
+/* 493 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Angle = function Angle(_ref) {
+  var angle = _ref.angle;
+  return _react2.default.createElement(
+    'h3',
+    null,
+    'Angle: ',
+    angle,
+    '\xB0'
+  );
+};
+
+exports.default = Angle;
 
 /***/ })
 /******/ ]);

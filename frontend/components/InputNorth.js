@@ -2,11 +2,23 @@ import React from 'react';
 import { FormGroup, InputGroup, FormControl } from 'react-bootstrap';
 
 class InputNorth extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.north
+    }
+  }
+
   handleChange(e) {
     if (e.target.value != '' && !isNaN(e.target.value)) {
       this.props.setNorth(parseFloat(e.target.value));
+      this.setState({
+        value: e.target.value
+      })
     } else {
-      this.props.setNorth(0);
+      this.setState({
+        value: e.target.value
+      })
     }
   }
 
@@ -21,7 +33,7 @@ class InputNorth extends React.Component {
           <FormGroup>
             <InputGroup style={{maxWidth: '10%'}}>
               <InputGroup.Addon>North</InputGroup.Addon>
-              <FormControl type='text' value={this.props.north} onChange={(e) => this.handleChange(e)} />
+              <FormControl type='text' value={this.state.value} onChange={(e) => this.handleChange(e)} />
             </InputGroup>
           </FormGroup>
         </form>
