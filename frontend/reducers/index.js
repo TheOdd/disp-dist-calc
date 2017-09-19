@@ -18,7 +18,7 @@ const rootReducer = (state = defaultState, action) => {
       dist = state.south + state.east + state.west + action.north;
       distanceX = Math.abs(state.west - state.east);
       distanceY = Math.abs(state.south - action.north);
-      disp = Math.sqrt((distanceX*distanceX) + (distanceY*distanceY));
+      disp = Math.hypot(distanceY, distanceX);
       return Object.assign({}, state, {
           north: action.north,
           distance: dist,
@@ -28,7 +28,7 @@ const rootReducer = (state = defaultState, action) => {
       dist = state.north + state.east + state.west + action.south;
       distanceX = Math.abs(state.west - state.east);
       distanceY = Math.abs(state.north - action.south);
-      disp = Math.sqrt((distanceX*distanceX) + (distanceY*distanceY));
+      disp = Math.hypot(distanceY, distanceX);
       return Object.assign({}, state, {
           south: action.south,
           distance: dist,
@@ -38,7 +38,7 @@ const rootReducer = (state = defaultState, action) => {
       dist = state.north + state.south + state.west + action.east;
       distanceX = Math.abs(state.west - action.east);
       distanceY = Math.abs(state.south - state.north);
-      disp = Math.sqrt((distanceX*distanceX) + (distanceY*distanceY));
+      disp = Math.hypot(distanceY, distanceX);
       return Object.assign({}, state, {
           east: action.east,
           distance: dist,
@@ -48,7 +48,7 @@ const rootReducer = (state = defaultState, action) => {
       dist = state.north + state.east + state.south + action.west;
       distanceX = Math.abs(action.west - state.east);
       distanceY = Math.abs(state.south - state.north);
-      disp = Math.sqrt((distanceX*distanceX) + (distanceY*distanceY));
+      disp = Math.hypot(distanceY, distanceX);
       return Object.assign({}, state, {
           west: action.west,
           distance: dist,
