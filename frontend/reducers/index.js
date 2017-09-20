@@ -28,6 +28,8 @@ const rootReducer = (state = defaultState, action) => {
       angle = distanceX > distanceY ? distanceY : distanceX;
       angle /= disp;
       angle = Math.asin(angle) * 180/Math.PI;
+      if (isNaN(angle))
+        angle = 0;
       return Object.assign({}, state, {
           north: action.north,
           distance: dist,
@@ -44,6 +46,8 @@ const rootReducer = (state = defaultState, action) => {
       angle = distanceX > distanceY ? distanceY : distanceX;
       angle /= disp;
       angle = Math.asin(angle) * 180/Math.PI;
+      if (isNaN(angle))
+        angle = 0;
       return Object.assign({}, state, {
           south: action.south,
           distance: dist,
@@ -60,6 +64,8 @@ const rootReducer = (state = defaultState, action) => {
       angle = distanceX > distanceY ? distanceY : distanceX;
       angle /= disp;
       angle = Math.asin(angle) * 180/Math.PI;
+      if (isNaN(angle))
+        angle = 0;
       return Object.assign({}, state, {
           east: action.east,
           distance: dist,
@@ -76,6 +82,8 @@ const rootReducer = (state = defaultState, action) => {
       angle = distanceX > distanceY ? distanceY : distanceX;
       angle /= disp;
       angle = Math.asin(angle) * 180/Math.PI;
+      if (isNaN(angle))
+        angle = 0;
       return Object.assign({}, state, {
           west: action.west,
           distance: dist,
