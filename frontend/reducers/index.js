@@ -5,7 +5,9 @@ const defaultState = {
   west: 0,
   displacement: 0,
   distance: 0,
-  angle: 0
+  angle: 0,
+  xIn: 0,
+  yIn: 0
 };
 
 var dist = 0;
@@ -13,6 +15,8 @@ var disp = 0;
 var distanceX = 0;
 var distanceY = 0;
 var angle = 0;
+var xIn = 0;
+var yIn = 0;
 
 const rootReducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -28,7 +32,9 @@ const rootReducer = (state = defaultState, action) => {
           north: action.north,
           distance: dist,
           displacement: disp,
-          angle: angle
+          angle: angle,
+          xIn: distanceX,
+          yIn: distanceY
       });
     case 'UPDATE_SOUTH':
       dist = state.north + state.east + state.west + action.south;
@@ -42,7 +48,9 @@ const rootReducer = (state = defaultState, action) => {
           south: action.south,
           distance: dist,
           displacement: disp,
-          angle: angle
+          angle: angle,
+          xIn: distanceX,
+          yIn: distanceY
       });
     case 'UPDATE_EAST':
       dist = state.north + state.south + state.west + action.east;
@@ -56,7 +64,9 @@ const rootReducer = (state = defaultState, action) => {
           east: action.east,
           distance: dist,
           displacement: disp,
-          angle: angle
+          angle: angle,
+          xIn: distanceX,
+          yIn: distanceY
       });
     case 'UPDATE_WEST':
       dist = state.north + state.east + state.south + action.west;
@@ -70,7 +80,9 @@ const rootReducer = (state = defaultState, action) => {
           west: action.west,
           distance: dist,
           displacement: disp,
-          angle: angle
+          angle: angle,
+          xIn: distanceX,
+          yIn: distanceY
       });
     default:
       return state;

@@ -31,7 +31,7 @@ class InputEast extends React.Component {
       <div>
         <form onSubmit={e => this.handleSubmit(e)}>
           <FormGroup>
-            <InputGroup style={{maxWidth: '10%'}}>
+            <InputGroup style={{maxWidth: '25%'}}>
               <InputGroup.Addon>East</InputGroup.Addon>
               <FormControl type='text' value={this.state.value} onChange={(e) => this.handleChange(e)} />
             </InputGroup>

@@ -10,20 +10,25 @@ import InputWest from '../components/InputWest';
 import Distance from '../components/Distance';
 import Displacement from '../components/Displacement';
 import Angle from '../components/Angle';
+import RenderTriangle from '../components/RenderTriangle';
+import Columns from 'react-columns';
 
-const AppContainer = ({ north, south, east, west, distance, displacement, setNorth, setSouth, setEast, setWest, angle }) => {
+const AppContainer = ({ north, south, east, west, distance, displacement, setNorth, setSouth, setEast, setWest, angle, xIn, yIn }) => {
   return (
-    <div>
-      <Title />
-      <Instructions />
-      <InputNorth north={north} setNorth={(num) => setNorth(num)} />
-      <InputSouth south={south} setSouth={(num) => setSouth(num)} />
-      <InputEast east={east} setEast={(num) => setEast(num)} />
-      <InputWest west={west} setWest={(num) => setWest(num)} />
-      <Distance distance={distance} />
-      <Displacement displacement={displacement} />
-      <Angle angle={angle} />
-    </div>
+    <Columns columns={2}>
+      <div>
+        <Title />
+        <Instructions />
+        <InputNorth north={north} setNorth={(num) => setNorth(num)} />
+        <InputSouth south={south} setSouth={(num) => setSouth(num)} />
+        <InputEast east={east} setEast={(num) => setEast(num)} />
+        <InputWest west={west} setWest={(num) => setWest(num)} />
+        <Distance distance={distance} />
+        <Displacement displacement={displacement} />
+        <Angle angle={angle} />
+      </div>
+      <RenderTriangle xIn={xIn} yIn={yIn} />
+    </Columns>
   )
 }
 
@@ -32,7 +37,9 @@ AppContainer.propTypes = {
   south: PropTypes.number,
   east: PropTypes.number,
   west: PropTypes.number,
-  angle: PropTypes.number
+  angle: PropTypes.number,
+  xIn: PropTypes.number,
+  yIn: PropTypes.number
 };
 
 const mapStateToProps = (state) => {
@@ -43,7 +50,9 @@ const mapStateToProps = (state) => {
       west: state.west,
       distance: state.distance,
       displacement: state.displacement,
-      angle: state.angle
+      angle: state.angle,
+      xIn: state.xIn,
+      yIn: state.yIn
     };
 };
 
