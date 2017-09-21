@@ -10,13 +10,7 @@ const defaultState = {
   yIn: 0
 };
 
-var dist = 0;
-var disp = 0;
-var distanceX = 0;
-var distanceY = 0;
-var angle = 0;
-var xIn = 0;
-var yIn = 0;
+var [dist, disp, distanceX, distanceY, angle, xIn, yIn] = Array(7).fill(0);
 
 const rootReducer = (state = defaultState, action) => {
   switch (action.type) {

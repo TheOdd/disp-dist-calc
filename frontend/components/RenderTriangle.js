@@ -3,7 +3,8 @@ import {Layer, Shape, Stage} from 'react-konva';
 
 const Triangle = ({xIn, yIn}) => {
     return (
-      <Shape sceneFunc={function (ctx) {
+      <Shape
+        sceneFunc={function (ctx) {
         var xConst = 250;
         var yConst = 250;
         var newX = 0;
@@ -17,12 +18,15 @@ const Triangle = ({xIn, yIn}) => {
         }
         var width = 500;
         var height = 500;
+
         ctx.beginPath();
         ctx.moveTo(width/2,height/2);
         ctx.lineTo(0 + (width/2), newY + (height/2));
         ctx.stroke();
+
         ctx.lineTo(newX + (width/2), newY + (height/2));
         ctx.stroke();
+
         ctx.lineTo(width/2,height/2);
         ctx.stroke();
         ctx.closePath();
