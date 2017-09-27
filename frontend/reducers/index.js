@@ -10,82 +10,43 @@ const defaultState = {
   yIn: 0
 };
 
-var [dist, disp, distanceX, distanceY, angle, xIn, yIn] = Array(7).fill(0);
+var [dist, disp, distanceX, distanceY, angle] = Array(5).fill(0);
+
+const calcFunc = (north, south, east, west) => {
+  dist = north + south + east + west;
+  distanceX = Math.abs(west - east);
+  distanceY = Math.abs(south - north);
+  disp = Math.hypot(distanceY, distanceX);
+  angle = distanceX > distanceY ? distanceY : distanceX;
+  angle /= disp;
+  angle = Math.asin(angle) * 180/Math.PI;
+  if (isNaN(angle))
+    angle = 0;
+  return {
+      north: north,
+      south: south,
+      east: east,
+      west: west,
+      distance: dist,
+      displacement: disp,
+      angle: angle,
+      xIn: distanceX,
+      yIn: distanceY
+  };
+}
 
 const rootReducer = (state = defaultState, action) => {
+  var { newVal } = action;
+  var { north, south, east, west } = state;
   switch (action.type) {
     case 'UPDATE_NORTH':
-      dist = state.south + state.east + state.west + action.north;
-      distanceX = Math.abs(state.west - state.east);
-      distanceY = Math.abs(state.south - action.north);
-      disp = Math.hypot(distanceY, distanceX);
-      angle = distanceX > distanceY ? distanceY : distanceX;
-      angle /= disp;
-      angle = Math.asin(angle) * 180/Math.PI;
-      if (isNaN(angle))
-        angle = 0;
-      return Object.assign({}, state, {
-          north: action.north,
-          distance: dist,
-          displacement: disp,
-          angle: angle,
-          xIn: distanceX,
-          yIn: distanceY
-      });
+      return calcFunc(newVal, south, east, west);
     case 'UPDATE_SOUTH':
-      dist = state.north + state.east + state.west + action.south;
-      distanceX = Math.abs(state.west - state.east);
-      distanceY = Math.abs(state.north - action.south);
-      disp = Math.hypot(distanceY, distanceX);
-      angle = distanceX > distanceY ? distanceY : distanceX;
-      angle /= disp;
-      angle = Math.asin(angle) * 180/Math.PI;
-      if (isNaN(angle))
-        angle = 0;
-      return Object.assign({}, state, {
-          south: action.south,
-          distance: dist,
-          displacement: disp,
-          angle: angle,
-          xIn: distanceX,
-          yIn: distanceY
-      });
+      return calcFunc(north, newVal, east, west);
     case 'UPDATE_EAST':
-      dist = state.north + state.south + state.west + action.east;
-      distanceX = Math.abs(state.west - action.east);
-      distanceY = Math.abs(state.south - state.north);
-      disp = Math.hypot(distanceY, distanceX);
-      angle = distanceX > distanceY ? distanceY : distanceX;
-      angle /= disp;
-      angle = Math.asin(angle) * 180/Math.PI;
-      if (isNaN(angle))
-        angle = 0;
-      return Object.assign({}, state, {
-          east: action.east,
-          distance: dist,
-          displacement: disp,
-          angle: angle,
-          xIn: distanceX,
-          yIn: distanceY
-      });
+      return calcFunc(north, south, newVal, west);
     case 'UPDATE_WEST':
-      dist = state.north + state.east + state.south + action.west;
-      distanceX = Math.abs(action.west - state.east);
-      distanceY = Math.abs(state.south - state.north);
-      disp = Math.hypot(distanceY, distanceX);
-      angle = distanceX > distanceY ? distanceY : distanceX;
-      angle /= disp;
-      angle = Math.asin(angle) * 180/Math.PI;
-      if (isNaN(angle))
-        angle = 0;
-      return Object.assign({}, state, {
-          west: action.west,
-          distance: dist,
-          displacement: disp,
-          angle: angle,
-          xIn: distanceX,
-          yIn: distanceY
-      });
+      return calcFunc(north, south, east, newVal);
     default:
       return state;
   }

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import Columns from 'react-columns';
+
 import Title from '../components/Title';
 import Instructions from '../components/Instructions';
 import InputNorth from '../components/InputNorth';
@@ -11,7 +13,6 @@ import Distance from '../components/Distance';
 import Displacement from '../components/Displacement';
 import Angle from '../components/Angle';
 import RenderTriangle from '../components/RenderTriangle';
-import Columns from 'react-columns';
 
 const AppContainer = ({ north, south, east, west, distance, displacement, setNorth, setSouth, setEast, setWest, angle, xIn, yIn }) => {
   return (
@@ -60,25 +61,25 @@ const mapDispatchToProps = (dispatch) => {
     return {
       setNorth: (num) => {
         dispatch({
-          north: num,
+          newVal: num,
           type: 'UPDATE_NORTH'
         })
       },
       setSouth: (num) => {
         dispatch({
-          south: num,
+          newVal: num,
           type: 'UPDATE_SOUTH'
         })
       },
       setEast: (num) => {
         dispatch({
-          east: num,
+          newVal: num,
           type: 'UPDATE_EAST'
         })
       },
       setWest: (num) => {
         dispatch({
-          west: num,
+          newVal: num,
           type: 'UPDATE_WEST'
         })
       }
