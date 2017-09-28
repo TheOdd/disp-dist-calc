@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, InputGroup, FormControl } from 'react-bootstrap';
 
-class InputWest extends React.Component {
+class InputDir extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,7 +11,7 @@ class InputWest extends React.Component {
 
   handleChange(e) {
     if (e.target.value != '' && !isNaN(e.target.value)) {
-      this.props.setWest(parseFloat(e.target.value));
+      this.props.setDir(parseFloat(e.target.value));
       this.setState({
         value: e.target.value
       })
@@ -32,7 +32,7 @@ class InputWest extends React.Component {
         <form onSubmit={e => this.handleSubmit(e)}>
           <FormGroup>
             <InputGroup style={{maxWidth: '25%'}}>
-              <InputGroup.Addon>West</InputGroup.Addon>
+              <InputGroup.Addon>{this.props.dir}</InputGroup.Addon>
               <FormControl type='text' value={this.state.value} onChange={(e) => this.handleChange(e)} />
             </InputGroup>
           </FormGroup>
@@ -42,4 +42,4 @@ class InputWest extends React.Component {
   }
 }
 
-export default InputWest;
+export default InputDir;

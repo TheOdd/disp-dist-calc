@@ -5,25 +5,22 @@ import Columns from 'react-columns';
 
 import Title from '../components/Title';
 import Instructions from '../components/Instructions';
-import InputNorth from '../components/InputNorth';
-import InputSouth from '../components/InputSouth';
-import InputEast from '../components/InputEast';
-import InputWest from '../components/InputWest';
+import InputDir from '../components/InputDir';
 import Distance from '../components/Distance';
 import Displacement from '../components/Displacement';
 import Angle from '../components/Angle';
 import RenderTriangle from '../components/RenderTriangle';
 
-const AppContainer = ({ north, south, east, west, distance, displacement, setNorth, setSouth, setEast, setWest, angle, xIn, yIn }) => {
+const AppContainer = ({ distance, displacement, setNorth, setSouth, setEast, setWest, angle, xIn, yIn }) => {
   return (
     <Columns columns={2}>
       <div>
         <Title />
         <Instructions />
-        <InputNorth north={north} setNorth={(num) => setNorth(num)} />
-        <InputSouth south={south} setSouth={(num) => setSouth(num)} />
-        <InputEast east={east} setEast={(num) => setEast(num)} />
-        <InputWest west={west} setWest={(num) => setWest(num)} />
+        <InputDir dir="North" setDir={(num) => setNorth(num)} />
+        <InputDir dir="South" setDir={(num) => setSouth(num)} />
+        <InputDir dir="East" setDir={(num) => setEast(num)} />
+        <InputDir dir="West" setDir={(num) => setWest(num)} />
         <Distance distance={distance} />
         <Displacement displacement={displacement} />
         <Angle angle={angle} />
@@ -34,13 +31,15 @@ const AppContainer = ({ north, south, east, west, distance, displacement, setNor
 }
 
 AppContainer.propTypes = {
-  north: PropTypes.number,
-  south: PropTypes.number,
-  east: PropTypes.number,
-  west: PropTypes.number,
   angle: PropTypes.number,
   xIn: PropTypes.number,
-  yIn: PropTypes.number
+  yIn: PropTypes.number,
+  distance: PropTypes.number,
+  displacement: PropTypes.number,
+  setNorth: PropTypes.func,
+  setSouth: PropTypes.func,
+  setEast: PropTypes.func,
+  setWest: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
