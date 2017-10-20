@@ -26,6 +26,8 @@ The absolute values of `north - south` and `east - west` mentioned in the displa
 #### *Rendered Right Triangle*
 I used the `canvas` HTML element to create it at first, but in order to have it work well with React re-rendering, I switched to using [React-Konva][1]. The high-level summary of how it works is that it proportionately scales the input to always fit the canvas. It then draws three lines to three different points based on the input to create the triangle. This re-renders on input change. You can look at the full source code [here][2] if you want to see how it works more in-depth.
 
+---
+
 ### Where can I find it?
 The app is currently hosted on my website in the playground section, which is for personal projects. You can find it [here][3].
 
