@@ -43,4 +43,4 @@ I know that it calculates more than just distance and displacement. Originally, 
 
 [1]: https://github.com/lavrton/react-konva
 [2]: https://github.com/TheOdd/disp-dist-calc/blob/master/frontend/components/RenderTriangle.js
-[3]: http://owenhines.me/playground/disp-dist-calc/
+[3]: https://owenhines.me/disp-dist-calc/
